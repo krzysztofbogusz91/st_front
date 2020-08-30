@@ -1,24 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Training from './pages/Training/Training';
+import Settings from './pages/Settings/Settings';
+import About from './pages/About/About';
+import LogInPage from './pages/Login/LogInPage';
+import NavBar from './components/Navbar/NavBar';
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
+
+const LoginContainer = () => (
+  <div>
+      <Route path="/login" component={LogInPage} exact />
+  </div>
+)
+
+const DefaultContainer = () => (
+    <div>
+      <NavBar />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/settings" component={Settings} />
+      <Route path="/about" component={About} />
+      <Route path="/training" component={Training} />
+    </div>
+ )
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+        <Route exact path="/(login)" component={LoginContainer}/>
+        <ProtectedRoute component={DefaultContainer}/>
+      </Switch>
     </div>
   );
 }

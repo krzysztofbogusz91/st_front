@@ -1,0 +1,16 @@
+.button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  &-element {
+    width: 45%;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
